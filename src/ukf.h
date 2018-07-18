@@ -42,6 +42,9 @@ public:
   VectorXd z_pred_;
   MatrixXd S_;
 
+  MatrixXd R_lidar_;
+  MatrixXd R_radar_;
+
   ///* time when the state is true, in us
   long long time_us_;
 
@@ -79,6 +82,12 @@ public:
   double lambda_;
 
   double previous_timestamp_;
+
+   ///* the current NIS for radar
+  double NIS_radar_;
+
+  ///* the current NIS for laser
+  double NIS_laser_;
 
   /**
    * Constructor
