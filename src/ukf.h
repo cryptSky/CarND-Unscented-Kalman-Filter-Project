@@ -31,6 +31,17 @@ public:
   ///* predicted sigma points matrix
   MatrixXd Xsig_pred_;
 
+   ///* predicted sigma points matrix in measurement space
+  MatrixXd Zsig_;
+
+  VectorXd x_pred;
+  MatrixXd P_pred;
+  MatrixXd Xsig_aug_;
+  MatrixXd Xsig_;
+
+  VectorXd z_pred_;
+  MatrixXd S_;
+
   ///* time when the state is true, in us
   long long time_us_;
 
@@ -67,6 +78,7 @@ public:
   ///* Sigma point spreading parameter
   double lambda_;
 
+  double previous_timestamp_;
 
   /**
    * Constructor
@@ -103,12 +115,12 @@ public:
    */
   void UpdateRadar(MeasurementPackage meas_package);
 
-  void GenerateSigmaPoints(MatrixXd* Xsig_out);
-  void AugmentedSigmaPoints(MatrixXd* Xsig_out);
-  void SigmaPointPrediction(MatrixXd* Xsig_out);
-  void PredictMeanAndCovariance(VectorXd* x_pred, MatrixXd* P_pred);
-  void PredictRadarMeasurement(VectorXd* z_out, MatrixXd* S_out);
-  void UpdateState(VectorXd* x_out, MatrixXd* P_out);
+  void GenerateSigmaPoints();
+  void AugmentedSigmaPoints();
+  void SigmaPointPrediction(double delta_t);
+  void PredictMeanAndCovariance();
+  void PredictRadarMeasurement();
+  void UpdateState(const VectorXd& z);
 
 };
 
